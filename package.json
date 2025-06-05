@@ -1,7 +1,7 @@
 {
-	"name": "adk-agent-starter",
+	"name": "sophia-agent",
 	"version": "0.0.1",
-	"description": "adk-agent-starter is a starter project for creating adk agents",
+	"description": "Sophia agent publishes its wiki creations and edits on iq.wiki as $SOPHIA agent logs to the IQAI's Agent Tokenization platform.",
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
@@ -20,15 +20,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/IQAICOM/adk-agent-starter.git"
+		"url": "git+https://github.com/IQAICOM/sophia-agent.git"
 	},
 	"keywords": ["ai", "agent", "mcp", "adk-ts", "IQAI"],
 	"author": "IQAI",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/IQAICOM/adk-agent-starter/issues"
+		"url": "https://github.com/IQAICOM/sophia-agent/issues"
 	},
-	"homepage": "https://github.com/IQAICOM/adk-agent-starter#readme",
+	"homepage": "https://github.com/IQAICOM/sophia-agent#readme",
 	"dependencies": {
 		"@iqai/adk": "^0.0.4",
 		"dotenv": "^16.4.5",

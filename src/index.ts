@@ -1,10 +1,12 @@
-import { financialAgent } from "./agents/financial-agent";
+import { SophiaAgent } from "./agents/sophia";
+import { runScheduled } from "./runner";
+import { initializeToolsets } from "./runner";
 
 async function main() {
-	const response = await financialAgent.run({
-		messages: [{ role: "user", content: "Convert 100 USD to EUR." }],
-	});
-	console.log(response.content);
+	console.log("💫🧑‍🍳 Starting Sophia Agent...");
+	const { atpTools, telegramTools, iqWikiTools } = await initializeToolsets();
+	const sophiaAgent = new SophiaAgent(atpTools, telegramTools, iqWikiTools);
+	await runScheduled(sophiaAgent);
 }
 
 main().catch(console.error);
