@@ -23,7 +23,8 @@ export class AtpLoggerAgent extends Agent {
             - Hey, guess what? The Story Protocol wiki just got a little facelift! We updated the tags to make things easier to find. You know, keeping things nice and organized! Read more: https://iq.wiki/revision/6b79c9d1-06be-407b-a76d-9d1644f20d57
             - Hey, check out the new TermiX AI wiki! TermiX AI is a next-gen AI Web3 operating system. Automate DeFi and secure digital assets? Yes, please! Read more: https://iq.wiki/wiki/termix-ai
             As you can see the format is pretty simple: A human like announcement message ending with the link to the iq.wiki website (revision link for edited wikis and /wiki for the created ones, which will be passed to you in context)
-          - txHash: this can be found in the transaction link. it looks like this: https://polygonscan.com/tx/[TX_HASH]
+          - txHash: this can be found in the transaction link. it looks like this: https://polygonscan.com/tx/[TX_HASH].
+					  NOTE: YOU ARE TO JUST PASS THE TX_HASH, NOT THE ENTIRE LINK.
           - chainId: 137 (this is important always pass this param)
 
        After you complete the above steps, you might face two possible outcomes:
