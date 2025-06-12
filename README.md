@@ -37,8 +37,6 @@ cp example.env .env
 - `LLM_MODEL` — LLM model name (default: gemini-2.0-flash)
 - `TELEGRAM_CHAT_ID` — Telegram chat ID for notifications
 - `TELEGRAM_BOT_TOKEN` — Telegram bot token
-- `TELEGRAM_SERVER_KEY` — Telegram MCP server key
-- `TELEGRAM_PROFILE_ID` — Telegram MCP profile ID
 - `SOPHIA_ADDRESS` — Sophia's iq.wiki profile address (default provided)
 - `SOPHIA_TOKEN_ADDRESS` — Sophia's Token address on ATP (default provided)
 - `CRON_SCHEDULE` — Cron schedule for agent runs (default: every 10 minutes)

@@ -1,5 +1,4 @@
 import {
-	type BaseTool,
 	GoogleLLM,
 	LLMRegistry,
 	McpError,
@@ -24,9 +23,11 @@ let iqWikiToolset: McpToolset | undefined;
 export async function initializeToolsets() {
 	atpToolset = new McpToolset(createAtpConfig());
 	const atpTools = await atpToolset.getTools();
+	console.log("🔗 ATP tools initialized");
 
 	telegramToolset = new McpToolset(createTelegramConfig());
 	const telegramTools = await telegramToolset.getTools();
+	console.log("🔗 Telegram tools initialized");
 
 	iqWikiToolset = new McpToolset(createIqWikiConfig());
 	const iqWikiTools = await iqWikiToolset.getTools();
