@@ -35,6 +35,5 @@ export async function watcherAgent(
 			IMPORTANT: You MUST end your response with the exact token NEW_ACTIVITY_FOUND or NO_ACTIVITY_FOUND.
 		`)
 		.withTools(...iqWikiTools)
-		.withQuickSession("sophia", "uid_1234")
 		.build();
 }
