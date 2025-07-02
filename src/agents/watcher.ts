@@ -16,7 +16,7 @@ export async function watcherAgent(
 			SOPHIA'S IQ.WIKI PROFILE ADDRESS: ${env.SOPHIA_ADDRESS}
 
 			Your only work is to do the below:
-			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 50 minutes (pass it as seconds)
+			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 10 minutes (pass it as seconds)
 			- after you call the tool and if any new activities are seen order them according to the time, older ones first. no extra formatting is needed
 
 			NOTE: Based on your tool run since you have two possible outcomes ie, either new activity is found or no activity is found,
