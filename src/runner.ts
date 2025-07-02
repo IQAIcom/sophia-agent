@@ -24,11 +24,9 @@ export async function initializeToolsets() {
 
 	const telegramConfig = createTelegramConfig();
 	let telegramTools: BaseTool[] = [];
-	if (telegramConfig) {
-		telegramToolset = new McpToolset(telegramConfig);
-		telegramTools = await telegramToolset.getTools();
-		console.log("🔗 Telegram tools initialized");
-	}
+	telegramToolset = new McpToolset(telegramConfig);
+	telegramTools = await telegramToolset.getTools();
+	console.log("🔗 Telegram tools initialized");
 
 	iqWikiToolset = new McpToolset(createIqWikiConfig());
 	const iqWikiTools = await iqWikiToolset.getTools();
