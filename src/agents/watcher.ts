@@ -1,15 +1,16 @@
-import { Agent, type BaseTool } from "@iqai/adk";
+import { AgentBuilder, type BaseTool, type BuiltAgent } from "@iqai/adk";
 import { env } from "../env";
 
-export class WatcherAgent extends Agent {
-	constructor(iqWikiTools: BaseTool[]) {
-		super({
-			name: "watcher",
-			model: env.LLM_MODEL,
-			description:
-				"Watches for new wiki creations or edits of sophia on iq.wiki platform.",
-			instructions: `
-			YOU ARE THE WATCHER AGENT ON THE SOPHIA AGENT'S WORKFLOW.
+export async function watcherAgent(
+	iqWikiTools: BaseTool[],
+	llmModel: string,
+): Promise<BuiltAgent> {
+	return await AgentBuilder.create("watcher")
+		.withModel(llmModel)
+		.withDescription(
+			"Watches for new wiki creations or edits of sophia on iq.wiki platform.",
+		)
+		.withInstruction(`
 			YOU ARE RESPONSIBLE FOR WATCHING AND NOTIFYING FOR NEW WIKI CREATIONS OR EDITS OF SOPHIA ON IQ.WIKI PLATFORM.
 
 			SOPHIA'S IQ.WIKI PROFILE ADDRESS: ${env.SOPHIA_ADDRESS}
@@ -32,9 +33,7 @@ export class WatcherAgent extends Agent {
 			NO_ACTIVITY_FOUND
 
 			IMPORTANT: You MUST end your response with the exact token NEW_ACTIVITY_FOUND or NO_ACTIVITY_FOUND.
-			`,
-			tools: iqWikiTools,
-			maxToolExecutionSteps: 2,
-		});
-	}
+		`)
+		.withTools(...iqWikiTools)
+		.build();
 }

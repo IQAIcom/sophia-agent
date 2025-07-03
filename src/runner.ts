@@ -1,12 +1,10 @@
 import {
-	GoogleLLM,
-	LLMRegistry,
+	type BaseTool,
+	type BuiltAgent,
 	McpError,
 	McpToolset,
-	type MessageRole,
 } from "@iqai/adk";
 import * as cron from "node-cron";
-import type { SophiaAgent } from "./agents/sophia";
 import { env } from "./env";
 import {
 	createAtpConfig,
@@ -14,51 +12,63 @@ import {
 	createTelegramConfig,
 } from "./utils/mcp-config";
 
-LLMRegistry.registerLLM(GoogleLLM);
-
 let atpToolset: McpToolset | undefined;
 let telegramToolset: McpToolset | undefined;
 let iqWikiToolset: McpToolset | undefined;
 
 export async function initializeToolsets() {
-	atpToolset = new McpToolset(createAtpConfig());
+	const atpConfig = createAtpConfig();
+	atpToolset = new McpToolset(atpConfig);
 	const atpTools = await atpToolset.getTools();
 	console.log("🔗 ATP tools initialized");
 
-	telegramToolset = new McpToolset(createTelegramConfig());
-	const telegramTools = await telegramToolset.getTools();
+	const telegramConfig = createTelegramConfig();
+	let telegramTools: BaseTool[] = [];
+	telegramToolset = new McpToolset(telegramConfig);
+	telegramTools = await telegramToolset.getTools();
 	console.log("🔗 Telegram tools initialized");
 
 	iqWikiToolset = new McpToolset(createIqWikiConfig());
 	const iqWikiTools = await iqWikiToolset.getTools();
+	console.log("🔗 IQ Wiki tools initialized");
 
 	return { atpTools, telegramTools, iqWikiTools };
 }
 
-export async function runScheduled(agent: SophiaAgent) {
+export async function runScheduled(builtAgent: BuiltAgent) {
 	console.log(`⏰ Scheduled: ${env.CRON_SCHEDULE}`);
-	cron.schedule(env.CRON_SCHEDULE, () => runCycle(agent), {
+	cron.schedule(env.CRON_SCHEDULE, () => runCycle(builtAgent), {
 		timezone: "UTC",
 	});
 
-	await runCycle(agent);
+	await runCycle(builtAgent);
 	process.stdin.resume();
 }
 
-async function runCycle(agent: SophiaAgent) {
+async function runCycle(builtAgent: BuiltAgent) {
 	try {
 		console.log("🚀 Running sophia cycle...");
-		const result = await agent.run({
-			messages: [
-				{
-					role: "user" as MessageRole,
-					content: "run the sophia agent",
-				},
-			],
-		});
+		const { runner, session } = builtAgent;
+		if (!runner || !session) {
+			throw new Error("Runner or session not found");
+		}
 
-		if (result.content) {
-			console.log(`✅ Result: ${result.content}`);
+		for await (const event of runner.runAsync({
+			userId: "uid_1234",
+			sessionId: session.id,
+			newMessage: {
+				role: "user",
+				parts: [{ text: "continue" }],
+			},
+		})) {
+			if (event.content?.parts) {
+				const content = event.content.parts
+					.map((part: { text?: string }) => part.text || "")
+					.join("");
+				if (content) {
+					console.log(`✅ Result: ${content}`);
+				}
+			}
 		}
 	} catch (error) {
 		const errorMsg =
