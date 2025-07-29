@@ -1,6 +1,6 @@
 import { type BaseTool, McpIqWiki } from "@iqai/adk";
 
-export let tools: BaseTool[];
+let tools: BaseTool[];
 
 export const getIqWikiTools = async () => {
 	if (!tools) {

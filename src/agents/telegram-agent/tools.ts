@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import { type BaseTool, McpTelegram, type SamplingHandler } from "@iqai/adk";
 
-export let tools: BaseTool[];
+let tools: BaseTool[];
 
 export const getTelegramTools = async (samplingHandler?: SamplingHandler) => {
 	if (!tools) {
