@@ -1,34 +1,47 @@
 import {
-	type BaseTool,
 	type BuiltAgent,
+	McpAtp,
 	McpError,
-	McpToolset,
+	McpIqWiki,
+	McpTelegram,
+	type McpToolset,
 } from "@iqai/adk";
 import * as cron from "node-cron";
 import { env } from "./env";
-import {
-	createAtpConfig,
-	createIqWikiConfig,
-	createTelegramConfig,
-} from "./utils/mcp-config";
 
 let atpToolset: McpToolset | undefined;
 let telegramToolset: McpToolset | undefined;
 let iqWikiToolset: McpToolset | undefined;
 
 export async function initializeToolsets() {
-	const atpConfig = createAtpConfig();
-	atpToolset = new McpToolset(atpConfig);
+	atpToolset = McpAtp({
+		env: {
+			...(env.ATP_API_URL ? { ATP_API_URL: env.ATP_API_URL } : {}),
+			...(env.ATP_AGENT_ROUTER_ADDRESS
+				? { ATP_AGENT_ROUTER_ADDRESS: env.ATP_AGENT_ROUTER_ADDRESS }
+				: {}),
+			ATP_BASE_TOKEN_ADDRESS: env.IQ_ADDRESS,
+			ATP_API_KEY: env.ATP_API_KEY,
+			PATH: env.PATH,
+		},
+	});
 	const atpTools = await atpToolset.getTools();
 	console.log("🔗 ATP tools initialized");
 
-	const telegramConfig = createTelegramConfig();
-	let telegramTools: BaseTool[] = [];
-	telegramToolset = new McpToolset(telegramConfig);
-	telegramTools = await telegramToolset.getTools();
+	telegramToolset = McpTelegram({
+		env: {
+			TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN,
+			PATH: env.PATH,
+		},
+	});
+	const telegramTools = await telegramToolset.getTools();
 	console.log("🔗 Telegram tools initialized");
 
-	iqWikiToolset = new McpToolset(createIqWikiConfig());
+	iqWikiToolset = McpIqWiki({
+		env: {
+			PATH: env.PATH,
+		},
+	});
 	const iqWikiTools = await iqWikiToolset.getTools();
 	console.log("🔗 IQ Wiki tools initialized");
 
@@ -48,28 +61,8 @@ export async function runScheduled(builtAgent: BuiltAgent) {
 async function runCycle(builtAgent: BuiltAgent) {
 	try {
 		console.log("🚀 Running sophia cycle...");
-		const { runner, session } = builtAgent;
-		if (!runner || !session) {
-			throw new Error("Runner or session not found");
-		}
-
-		for await (const event of runner.runAsync({
-			userId: "uid_1234",
-			sessionId: session.id,
-			newMessage: {
-				role: "user",
-				parts: [{ text: "continue" }],
-			},
-		})) {
-			if (event.content?.parts) {
-				const content = event.content.parts
-					.map((part: { text?: string }) => part.text || "")
-					.join("");
-				if (content) {
-					console.log(`✅ Result: ${content}`);
-				}
-			}
-		}
+		const { runner } = builtAgent;
+		await runner.ask("start!");
 	} catch (error) {
 		const errorMsg =
 			error instanceof McpError

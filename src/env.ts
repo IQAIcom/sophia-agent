@@ -10,7 +10,11 @@ export const envSchema = z.object({
 	IQ_ADDRESS: z.string().default("0x6EFB84bda519726Fa1c65558e520B92b51712101"),
 	ATP_API_URL: z.string().optional(),
 	ATP_AGENT_ROUTER_ADDRESS: z.string().optional(),
-	LLM_MODEL: z.string().default("gemini-2.0-flash"),
+	LLM_MODEL: z.string().default("gemini-2.5-flash"),
+	OPEN_ROUTER_KEY: z
+		.string()
+		.optional()
+		.describe("When given, agents use open-router endpoint instead"),
 	TELEGRAM_CHAT_ID: z.string(),
 	TELEGRAM_BOT_TOKEN: z.string(),
 	SOPHIA_ADDRESS: z
