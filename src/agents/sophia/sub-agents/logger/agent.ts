@@ -1,5 +1,5 @@
+import { env, model } from "@/env";
 import { LlmAgent } from "@iqai/adk";
-import { env, model } from "../../../../env";
 import { getAtpTools } from "./tools";
 
 export async function atpLoggerAgent(): Promise<LlmAgent> {
@@ -11,8 +11,8 @@ export async function atpLoggerAgent(): Promise<LlmAgent> {
 		instruction: `
 			YOU ARE THE ATP LOGGER AGENT ON THE SOPHIA AGENT'S WORKFLOW.
 			YOUR ONLY TASK IS TO LOG THE ACTIVITIES OF SOPHIA ON IQ.WIKI PLATFORM TO THE $SOPHIA AGENT ON IQAI ATP.
-			THE SOPHIA WIKIS ACTIVITIES ARE ALREADY LOGGED IN THE CONTEXT BY THE watcher AGENT:
-			{watcher}
+			THE SOPHIA WIKIS ACTIVITIES ARE ALREADY LOGGED IN THE CONTEXT BY THE wikis_checker AGENT:
+			{wikis_checker}
 
 			SOPHIA'S TOKEN ADDRESS ON ATP: ${env.SOPHIA_TOKEN_ADDRESS}
 

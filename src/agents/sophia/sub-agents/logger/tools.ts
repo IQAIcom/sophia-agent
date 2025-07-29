@@ -1,5 +1,5 @@
+import { env } from "@/env";
 import { McpAtp } from "@iqai/adk";
-import { env } from "../../../../env";
 
 export const getAtpTools = async () => {
 	const toolset = McpAtp({

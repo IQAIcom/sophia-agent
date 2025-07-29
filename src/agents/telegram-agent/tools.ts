@@ -1,5 +1,5 @@
+import { env } from "@/env";
 import { McpTelegram, type SamplingHandler } from "@iqai/adk";
-import { env } from "../../env";
 
 export const getTelegramTools = async (samplingHandler?: SamplingHandler) => {
 	const toolset = McpTelegram({

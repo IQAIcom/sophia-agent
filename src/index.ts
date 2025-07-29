@@ -1,5 +1,5 @@
 import { sophiaAgent } from "./agents/sophia/agent";
-import { runScheduled } from "./runner";
+import { runScheduled } from "./cron";
 
 async function main() {
 	console.log("💫🧑‍🍳 Starting Sophia Agent...");

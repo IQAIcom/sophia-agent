@@ -1,5 +1,5 @@
+import { model } from "@/env";
 import { AgentBuilder, type SamplingHandler } from "@iqai/adk";
-import { model } from "../../env";
 import { getTelegramTools } from "./tools";
 
 export const createTelegramAgent = async (samplingHandler: SamplingHandler) => {

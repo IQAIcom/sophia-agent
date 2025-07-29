@@ -1,19 +1,12 @@
-import {
-	AgentBuilder,
-	type BaseTool,
-	type BuiltAgent,
-	InMemorySessionService,
-} from "@iqai/adk";
-import type { LanguageModelV1 } from "@openrouter/ai-sdk-provider";
+import { AgentBuilder, type BuiltAgent } from "@iqai/adk";
 import { atpLoggerAgent } from "./sub-agents/logger/agent";
 import { notifierAgent } from "./sub-agents/notifier/agent";
-import { watcherAgent } from "./sub-agents/watcher/agent";
+import { wikisCheckerAgent } from "./sub-agents/wikis-checker/agent";
 
 export async function sophiaAgent(): Promise<BuiltAgent> {
-	const watcher = await watcherAgent();
+	const wikisChecker = await wikisCheckerAgent();
 	const atpLogger = await atpLoggerAgent();
 	const notifier = await notifierAgent();
-	const sessionService = new InMemorySessionService();
 	return await AgentBuilder.create("sophia")
 		.withDescription(
 			"Sophia agent watches for new wiki creations or edits of sophia on iq.wiki platform and logs the activities to the ATP and sends a notification to the Telegram",
@@ -21,8 +14,8 @@ export async function sophiaAgent(): Promise<BuiltAgent> {
 		.asLangGraph(
 			[
 				{
-					name: "watcher",
-					agent: watcher,
+					name: "wikis_checker",
+					agent: wikisChecker,
 					targets: ["atp_logger"],
 				},
 				{
@@ -44,8 +37,7 @@ export async function sophiaAgent(): Promise<BuiltAgent> {
 					targets: [],
 				},
 			],
-			"watcher",
+			"wikis_checker",
 		)
-		.withSessionService(sessionService)
 		.build();
 }
