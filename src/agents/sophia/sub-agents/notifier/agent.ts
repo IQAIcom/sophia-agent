@@ -1,11 +1,9 @@
-import { type BaseTool, LlmAgent } from "@iqai/adk";
-import type { LanguageModelV1 } from "@openrouter/ai-sdk-provider";
-import { env } from "../../../../env";
+import { LlmAgent } from "@iqai/adk";
+import { env, model } from "../../../../env";
+import { getTelegramTools } from "../../../telegram-agent/tools";
 
-export async function notifierAgent(
-	tools: BaseTool[],
-	model: string | LanguageModelV1,
-) {
+export async function notifierAgent() {
+	const tools = await getTelegramTools();
 	return new LlmAgent({
 		name: "notifier",
 		description:

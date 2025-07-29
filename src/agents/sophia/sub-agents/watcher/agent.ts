@@ -1,11 +1,9 @@
-import { type BaseTool, LlmAgent } from "@iqai/adk";
-import type { LanguageModelV1 } from "@openrouter/ai-sdk-provider";
-import { env } from "../../../../env";
+import { LlmAgent } from "@iqai/adk";
+import { env, model } from "../../../../env";
+import { getIqWikiTools } from "./tools";
 
-export async function watcherAgent(
-	tools: BaseTool[],
-	model: string | LanguageModelV1,
-): Promise<LlmAgent> {
+export async function watcherAgent(): Promise<LlmAgent> {
+	const tools = await getIqWikiTools();
 	return new LlmAgent({
 		name: "watcher",
 		description:
@@ -17,7 +15,7 @@ export async function watcherAgent(
 			SOPHIA'S IQ.WIKI PROFILE ADDRESS: ${env.SOPHIA_ADDRESS}
 
 			Your only work is to do the below:
-			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 10 mins (pass it as seconds)
+			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 14 hours (pass it as seconds)
 			- after you call the tool, if any new activities are seen, order them according to the time, older ones first. No extra formatting is needed.
 
 			After you complete the above steps, you might face two possible outcomes:

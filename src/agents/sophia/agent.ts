@@ -9,15 +9,10 @@ import { atpLoggerAgent } from "./sub-agents/logger/agent";
 import { notifierAgent } from "./sub-agents/notifier/agent";
 import { watcherAgent } from "./sub-agents/watcher/agent";
 
-export async function sophiaAgent(
-	atpTools: BaseTool[],
-	telegramTools: BaseTool[],
-	iqWikiTools: BaseTool[],
-	llmModel: string | LanguageModelV1,
-): Promise<BuiltAgent> {
-	const watcher = await watcherAgent(iqWikiTools, llmModel);
-	const atpLogger = await atpLoggerAgent(atpTools, llmModel);
-	const notifier = await notifierAgent(telegramTools, llmModel);
+export async function sophiaAgent(): Promise<BuiltAgent> {
+	const watcher = await watcherAgent();
+	const atpLogger = await atpLoggerAgent();
+	const notifier = await notifierAgent();
 	const sessionService = new InMemorySessionService();
 	return await AgentBuilder.create("sophia")
 		.withDescription(

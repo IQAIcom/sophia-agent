@@ -1,11 +1,9 @@
-import { type BaseTool, LlmAgent } from "@iqai/adk";
-import type { LanguageModelV1 } from "@openrouter/ai-sdk-provider";
-import { env } from "../../../../env";
+import { LlmAgent } from "@iqai/adk";
+import { env, model } from "../../../../env";
+import { getAtpTools } from "./tools";
 
-export async function atpLoggerAgent(
-	tools: BaseTool[],
-	model: string | LanguageModelV1,
-): Promise<LlmAgent> {
+export async function atpLoggerAgent(): Promise<LlmAgent> {
+	const tools = await getAtpTools();
 	return new LlmAgent({
 		name: "atp_logger",
 		description:
