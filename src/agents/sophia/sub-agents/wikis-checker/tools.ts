@@ -1,9 +1,13 @@
-import { McpIqWiki } from "@iqai/adk";
+import { type BaseTool, McpIqWiki } from "@iqai/adk";
+
+export let tools: BaseTool[];
 
 export const getIqWikiTools = async () => {
-	const toolset = McpIqWiki();
+	if (!tools) {
+		const toolset = McpIqWiki();
 
-	const tools = await toolset.getTools();
+		tools = await toolset.getTools();
+	}
 
 	return tools;
 };

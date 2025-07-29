@@ -14,7 +14,7 @@ export async function wikisCheckerAgent(): Promise<LlmAgent> {
 			SOPHIA'S IQ.WIKI PROFILE ADDRESS: ${env.SOPHIA_ADDRESS}
 
 			Your only work is to do the below:
-			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 18 hours (pass it as seconds)
+			- call the GET_USER_WIKI_ACTIVITIES tool with timeframe as 10 mins (pass it as seconds)
 			- after you call the tool, if any new activities are seen, order them according to the time, older ones first. No extra formatting is needed.
 
 			After you complete the above steps, you might face two possible outcomes:

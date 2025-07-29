@@ -1,15 +1,18 @@
 import { env } from "@/env";
-import { McpTelegram, type SamplingHandler } from "@iqai/adk";
+import { type BaseTool, McpTelegram, type SamplingHandler } from "@iqai/adk";
+
+export let tools: BaseTool[];
 
 export const getTelegramTools = async (samplingHandler?: SamplingHandler) => {
-	const toolset = McpTelegram({
-		samplingHandler,
-		env: {
-			TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN,
-		},
-	});
-
-	const tools = await toolset.getTools();
+	if (!tools) {
+		const toolset = McpTelegram({
+			samplingHandler,
+			env: {
+				TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN,
+			},
+		});
+		tools = await toolset.getTools();
+	}
 
 	return tools;
 };

@@ -7,8 +7,6 @@ export async function runScheduled(builtAgent: BuiltAgent) {
 	cron.schedule(env.CRON_SCHEDULE, () => runCycle(builtAgent), {
 		timezone: "UTC",
 	});
-
-	await runCycle(builtAgent);
 	process.stdin.resume();
 }
 
