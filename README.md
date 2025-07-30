@@ -4,7 +4,7 @@ Sophia Agent is an autonomous workflow agent that monitors, logs, and notifies a
 
 ## Features
 
-- **Watches** for new wiki creations or edits by Sophia on iq.wiki
+- **Checks** for new wiki creations or edits by Sophia on iq.wiki
 - **Logs** activities to the $SOPHIA agent on IQAI ATP
 - **Notifies** a Telegram channel about new activities
 - **Scheduled** to run at configurable intervals (via cron)
@@ -67,9 +67,8 @@ pnpm run start
 
 ## Project Structure
 
-- `src/agents/` — Agent definitions (Watcher, Logger, Notifier, SophiaAgent)
-- `src/utils/` — Utility functions (MCP config, etc.)
-- `src/runner.ts` — Toolset lifecycle, scheduling, and shutdown logic
+- `src/agents/` — Agent definitions (Wikis Checker, Logger, Notifier, SophiaAgent)
+- `src/cron.ts` —  scheduling, and shutdown logic
 - `src/index.ts` — Entry point
 
 ## License

@@ -4,7 +4,7 @@
 	"description": "Sophia agent publishes its wiki creations and edits on iq.wiki as $SOPHIA agent logs to the IQAI's Agent Tokenization platform.",
 	"main": "dist/index.js",
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && tsc-alias",
 		"dev": "tsx watch src/index.ts",
 		"start": "node dist/index.js",
 		"clean": "rimraf dist",
@@ -30,7 +30,8 @@
 	},
 	"homepage": "https://github.com/IQAICOM/sophia-agent#readme",
 	"dependencies": {
-		"@iqai/adk": "^0.1.1",
+		"@iqai/adk": "^0.1.20",
+		"@openrouter/ai-sdk-provider": "^0.7.3",
 		"dotenv": "^16.4.5",
 		"node-cron": "^4.1.0",
 		"zod": "^3.23.8"
@@ -42,6 +43,7 @@
 		"husky": "^9.0.0",
 		"lint-staged": "^16.1.0",
 		"rimraf": "^6.0.1",
+		"tsc-alias": "^1.8.16",
 		"tsx": "^4.19.2",
 		"typescript": "^5.7.2"
 	}

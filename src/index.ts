@@ -1,17 +1,11 @@
-import { sophiaAgent } from "./agents/sophia";
-import { env } from "./env";
-import { runScheduled } from "./runner";
-import { initializeToolsets } from "./runner";
+import { sophiaAgent } from "./agents/sophia/agent";
+import { createTelegramAgent } from "./agents/telegram-agent/agent";
+import { runScheduled } from "./cron";
 
 async function main() {
 	console.log("💫🧑‍🍳 Starting Sophia Agent...");
-	const { atpTools, telegramTools, iqWikiTools } = await initializeToolsets();
-	const agent = await sophiaAgent(
-		atpTools,
-		telegramTools,
-		iqWikiTools,
-		env.LLM_MODEL,
-	);
+	await createTelegramAgent();
+	const agent = await sophiaAgent();
 	await runScheduled(agent);
 }
 
