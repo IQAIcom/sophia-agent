@@ -29,6 +29,11 @@
 		"url": "https://github.com/IQAICOM/sophia-agent/issues"
 	},
 	"homepage": "https://github.com/IQAICOM/sophia-agent#readme",
+	"pnpm": {
+		"overrides": {
+			"chalk": "^4.1.2"
+		}
+	},
 	"dependencies": {
 		"@iqai/adk": "^0.1.20",
 		"@openrouter/ai-sdk-provider": "^0.7.3",
