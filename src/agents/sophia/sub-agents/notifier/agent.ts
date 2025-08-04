@@ -18,6 +18,7 @@ export async function notifierAgent() {
 
 			Your only work is to do the below:
 			- use this as chat id: ${env.TELEGRAM_CHAT_ID}
+			- use this as topic id: ${env.TELEGRAM_TOPIC_ID}
 			- call the send_message tool to send a message with the following format:
 
 			If ATP logging was successful (if atp_logger response contains ATP_LOG_COMPLETE):
