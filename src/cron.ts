@@ -1,19 +1,22 @@
-import { type BuiltAgent, McpError } from "@iqai/adk";
+import { McpError } from "@iqai/adk";
 import * as cron from "node-cron";
+import { sophiaAgent } from "./agents/sophia/agent";
 import { env } from "./env";
 
-export async function runScheduled(builtAgent: BuiltAgent) {
+export async function runScheduled() {
 	console.log(`⏰ Scheduled: ${env.CRON_SCHEDULE}`);
-	cron.schedule(env.CRON_SCHEDULE, () => runCycle(builtAgent), {
+	cron.schedule(env.CRON_SCHEDULE, () => runCycle(), {
 		timezone: "UTC",
 	});
 	process.stdin.resume();
 }
 
-async function runCycle(builtAgent: BuiltAgent) {
+async function runCycle() {
+	const agent = await sophiaAgent();
+
 	try {
 		console.log("🚀 Running sophia cycle...");
-		const { runner } = builtAgent;
+		const { runner } = agent;
 		await runner.ask("start!");
 	} catch (error) {
 		const errorMsg =
