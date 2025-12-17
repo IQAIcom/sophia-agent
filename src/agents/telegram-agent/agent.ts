@@ -1,5 +1,5 @@
-import { model } from "@/env";
 import { AgentBuilder, createSamplingHandler } from "@iqai/adk";
+import { model } from "@/env";
 import { getIqWikiTools } from "../sophia/sub-agents/wikis-checker/tools";
 import { getTelegramTools } from "./tools";
 

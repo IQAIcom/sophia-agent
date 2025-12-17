@@ -1,6 +1,6 @@
+import { LlmAgent } from "@iqai/adk";
 import { getTelegramTools } from "@/agents/telegram-agent/tools";
 import { env, model } from "@/env";
-import { LlmAgent } from "@iqai/adk";
 
 export async function notifierAgent() {
 	const tools = await getTelegramTools();

@@ -16,13 +16,21 @@
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.{ts,js,json}": ["biome check --write"]
+		"*.{ts,js,json}": [
+			"biome check --write"
+		]
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/IQAICOM/sophia-agent.git"
 	},
-	"keywords": ["ai", "agent", "mcp", "adk-ts", "IQAI"],
+	"keywords": [
+		"ai",
+		"agent",
+		"mcp",
+		"adk-ts",
+		"IQAI"
+	],
 	"author": "IQAI",
 	"license": "MIT",
 	"bugs": {
@@ -31,25 +39,29 @@
 	"homepage": "https://github.com/IQAICOM/sophia-agent#readme",
 	"pnpm": {
 		"overrides": {
-			"chalk": "^4.1.2"
+			"chalk": "^4.1.2",
+			"fastmcp": "^3.25.4"
 		}
 	},
 	"dependencies": {
-		"@iqai/adk": "^0.1.20",
-		"@openrouter/ai-sdk-provider": "^0.7.3",
-		"dotenv": "^16.4.5",
-		"node-cron": "^4.1.0",
-		"zod": "^3.23.8"
+		"@iqai/adk": "^0.5.7",
+		"@openrouter/ai-sdk-provider": "^1.5.4",
+		"dotenv": "^17.2.3",
+		"node-cron": "^4.2.1",
+		"zod": "^4.2.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
-		"@types/node": "^22.15.29",
+		"@biomejs/biome": "^2.3.10",
+		"@iqai/mcp-atp": "0.0.8",
+		"@iqai/mcp-iqwiki": "^0.0.4",
+		"@iqai/mcp-telegram": "0.1.4",
+		"@types/node": "^25.0.3",
 		"@types/node-cron": "^3.0.11",
-		"husky": "^9.0.0",
-		"lint-staged": "^16.1.0",
-		"rimraf": "^6.0.1",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
+		"rimraf": "^6.1.2",
 		"tsc-alias": "^1.8.16",
-		"tsx": "^4.19.2",
-		"typescript": "^5.7.2"
+		"tsx": "^4.21.0",
+		"typescript": "^5.9.3"
 	}
 }
